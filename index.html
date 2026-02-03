@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Be My Valentine 💖</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- PAGE 1 ---------- */
+#page1 {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("https://images.unsplash.com/photo-1518895949257-7621c3c786d7");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- PAGE 2 ---------- */
+#page2 {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("IMG_1553.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: none;
+  overflow-y: auto;
+  padding: 30px 15px;
+}
+
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  color: #ff4d6d;
+  font-size: 20px;
+  animation: floatUp 7s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Card */
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 28px 20px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  width: 92%;
+  max-width: 380px;
+}
+
+h1 { color: #e63946; margin-bottom: 4px; }
+.name { font-size: 18px; margin-bottom: 8px; }
+.punjabi { font-size: 15px; color: #444; margin-bottom: 14px; }
+p { font-size: 18px; margin-bottom: 20px; }
+
+.buttons { position: relative; height: 90px; }
+
+button {
+  padding: 14px 26px;
+  font-size: 16px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+#yesBtn { background: #e63946; color: white; }
+#noBtn { background: #ddd; color: #333; position: absolute; left: 55%; }
+
+#message { display: none; color: #e63946; }
+
+.gallery {
+  display: none;
+  margin-top: 15px;
+}
+.gallery img {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+}
+.popup-content {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 320px;
+  text-align: center;
+}
+.close {
+  margin-top: 15px;
+  background: #e63946;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+}
+
+/* Password popup */
+#passwordPopup .popup-content input {
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #e63946;
+  width: 80%;
+  text-align:center;
+}
+#passwordPopup .popup-content input:focus {
+  outline: none;
+  border-color: #ff4d6d;
+  box-shadow: 0 0 10px rgba(230,57,70,0.5);
+}
+
+/* Fade-in animation for popup */
+.popup.show {
+  display: flex;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Heart animation for popup */
+.popup-heart {
+  position: absolute;
+  font-size: 16px;
+  color: #ff4d6d;
+  animation: floatUp 4s linear forwards;
+  opacity: 0.8;
+}
+
+/* Page 2 content */
+.love-box {
+  max-width: 750px;
+  margin: auto;
+  background: rgba(0,0,0,0.45);
+  padding: 30px 22px;
+  border-radius: 25px;
+}
+.signature {
+  text-align: right;
+  margin-top: 25px;
+  color: #ffd6e0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Love Talks.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ========== PAGE 1 ========== -->
+<div id="page1">
+
+  <div class="card">
+    <h1>💖 Avneet 💖</h1>
+    <div class="name">( ਮੈਡਮ ਜੀ ❤️ )</div>
+
+    <div class="punjabi">
+      ਤੂੰ ਮੇਰੀ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਸੋਹਣਾ ਹਿੱਸਾ ਏ ❤️<br>
+      ਤੇਰੇ ਨਾਲ ਹਰ ਦਿਨ ਖਾਸ ਲੱਗਦਾ ਏ 💕
+    </div>
+
+    <p>Will you be my Valentine?</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div id="message">
+      You chose love 💘<br>
+      <strong>Forever You, Forever Us 💍❤️</strong><br><br>
+      <button onclick="openLove()" style="background:#e63946;color:white;padding:12px 22px;border:none;border-radius:30px;">
+        Read My Heart 💌
+      </button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <img src="IMG_4631.JPG">
+      <img src="ffaa5784-bd2d-4045-9fd7-9bab16484f75.JPG">
+      <img src="IMG_1553.jpg">
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== PAGE 2 ========== -->
+<div id="page2">
+  <div class="love-box">
+    <h1>💌 My Love</h1>
+
+    <p>
+      From the moment you came into my life, everything changed.
+      You didn’t just become a part of my world — you became my world.
+    </p>
+
+    <p>
+      The last year wasn’t easy. We had lows, misunderstandings,
+      and moments that tested us. But my love for you never changed.
+    </p>
+
+    <p>
+      I may not be the person I want to be right now,
+      but I promise I am trying to return to my old self —
+      stronger, better, and worthy of you.
+    </p>
+
+    <p>
+      I am always with you — in smiles, silence, storms, and dreams.
+      Loving you is my truth.
+    </p>
+
+    <div class="signature">
+      Forever Yours ❤️
+    </div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>💌 My Love</h2>
+    <p>You are my calm, my chaos, and my happiness ❤️</p>
+    <button class="close" onclick="closePopup()">Close 💕</button>
+  </div>
+</div>
+
+<!-- PASSWORD POPUP -->
+<div class="popup" id="passwordPopup">
+  <div class="popup-content">
+    <h2>💌 Unlock My Heart</h2>
+    <p>Hint: First meet after reunion</p>
+    <input type="password" id="passwordInput" placeholder="Enter password 💖">
+    <br><br>
+    <button class="close" onclick="checkPassword()" style="background:#e63946;color:white;padding:10px 22px;">Unlock 💕</button>
+    <button class="close" onclick="closePasswordPopup()" style="background:#ddd;color:#333;padding:10px 22px;margin-top:10px;">Cancel ❌</button>
+  </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+// Play music on first click
+document.body.addEventListener("click", () => {
+  music.play().catch(()=>{});
+}, { once: true });
+
+// No button moves away
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.transform = `translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`;
+});
+noBtn.addEventListener("touchstart", () => {
+  noBtn.style.transform = `translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`;
+});
+
+// Yes button shows message, gallery, confetti, and popup
+yesBtn.onclick = () => {
+  document.getElementById("message").style.display = "block";
+  document.getElementById("gallery").style.display = "block";
+  yesBtn.style.display = "none";
+  noBtn.style.display = "none";
+  document.getElementById("popup").style.display = "flex";
+  confetti({ particleCount: 200, spread: 80 });
+};
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// Password popup functions
+function openLove() {
+  const popup = document.getElementById("passwordPopup");
+  popup.classList.add("show");
+  createPopupHearts();
+}
+
+function closePasswordPopup() {
+  const popup = document.getElementById("passwordPopup");
+  popup.classList.remove("show");
+}
+
+// Check password
+function checkPassword() {
+  const password = document.getElementById("passwordInput").value;
+  if (password === "27032023") {
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "block";
+    closePasswordPopup();
+  } else {
+    alert("❌ Wrong password! Try again.");
+    document.getElementById("passwordInput").value = ""; // clear input
+  }
+}
+
+// Floating hearts in popup
+function createPopupHearts() {
+  const popup = document.getElementById("passwordPopup");
+  const interval = setInterval(() => {
+    if (!popup.classList.contains("show")) {
+      clearInterval(interval);
+      return;
+    }
+    const heart = document.createElement("div");
+    heart.className = "popup-heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 80 + "%";
+    heart.style.fontSize = Math.random() * 12 + 14 + "px";
+    popup.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }, 250);
+}
+
+// Floating hearts on background
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 14 + 14 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}, 350);
+</script>
+
+</body>
+</html>
